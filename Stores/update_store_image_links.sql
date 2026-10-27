@@ -1,6 +1,3 @@
--- Store image_link update. NULL ki URL paste chey ('https://...'), NULL unnavi skip avthayi.
--- Kotha stores add cheyyalante ila oka line add chey:  ('Store Name', 'https://...'),
-
 -- Preview
 WITH fixes(store_name, url) AS (VALUES
   ('Ajmal Perfumes',   NULL::text),
