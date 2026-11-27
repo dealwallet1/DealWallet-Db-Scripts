@@ -38,5 +38,38 @@ RETURNING
     s.category_id;
 
 -- Review the returned rows.
+WITH category_mapping(store_name, category_id) AS (
+    VALUES
+        ('Ourritual',       '5352c50c-a00f-4fa6-ad26-6ecec7e35d80'::uuid),
+        ('Sparindia',       '2db53905-91c9-4247-be3e-afcc4aec6112'::uuid),
+        ('Aceblend',        '5352c50c-a00f-4fa6-ad26-6ecec7e35d80'::uuid),
+        ('Muscletech',      '51561884-f71d-4fb4-9c29-6aba2cf5406c'::uuid),
+        ('Mother Sparsh',   'c741e857-9fc5-4f6f-a66c-2cfa9eed610e'::uuid),
+        ('Daily objects',   '2afd57d6-c614-4482-b9f1-78bbba75d335'::uuid),
+        ('Squarespace',     '79f2782c-1b6d-40a0-a812-af097ef61a0e'::uuid),
+        ('Rasayanam',       '5352c50c-a00f-4fa6-ad26-6ecec7e35d80'::uuid),
+        ('Genspark',        '79f2782c-1b6d-40a0-a812-af097ef61a0e'::uuid),
+        ('Vaaree',          '0774861f-0937-41d6-bda4-e7d9718c14d2'::uuid),
+        ('Kerala Ayurveda', '5352c50c-a00f-4fa6-ad26-6ecec7e35d80'::uuid),
+        ('Proteition',      '51561884-f71d-4fb4-9c29-6aba2cf5406c'::uuid),
+        ('SciSpace',        '79f2782c-1b6d-40a0-a812-af097ef61a0e'::uuid),
+        ('Fytika',          '5352c50c-a00f-4fa6-ad26-6ecec7e35d80'::uuid),
+        ('NYKD By Nykaa',   'adc60933-703a-4ba1-838f-dcf70e7b7cae'::uuid),
+        ('Fitspire',        '51561884-f71d-4fb4-9c29-6aba2cf5406c'::uuid),
+        ('Livspace',        '0774861f-0937-41d6-bda4-e7d9718c14d2'::uuid),
+        ('Fashiola',        'adc60933-703a-4ba1-838f-dcf70e7b7cae'::uuid),
+        ('Lifespan',        '5352c50c-a00f-4fa6-ad26-6ecec7e35d80'::uuid),
+        ('Maspar',          '0774861f-0937-41d6-bda4-e7d9718c14d2'::uuid),
+        ('Cellspare',       '2afd57d6-c614-4482-b9f1-78bbba75d335'::uuid),
+        ('Healofy',         'c741e857-9fc5-4f6f-a66c-2cfa9eed610e'::uuid),
+        ('Victoria Secret', 'adc60933-703a-4ba1-838f-dcf70e7b7cae'::uuid),
+        ('Skore Condoms',   '5352c50c-a00f-4fa6-ad26-6ecec7e35d80'::uuid)
+)
+UPDATE public.stores AS s
+SET category_id = cm.category_id
+FROM category_mapping AS cm
+WHERE LOWER(TRIM(s.name)) = LOWER(TRIM(cm.store_name))
+  AND s.category_id IS DISTINCT FROM cm.category_id
+RETURNING s.id, s.name, s.category_id;
 -- COMMIT;
 -- ROLLBACK;
